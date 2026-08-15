@@ -1,12 +1,16 @@
 import threading
 from tkinter import Label
 
-def tick(time: str, label: Label) -> None:
+def tick(time: str, label: Label) -> bool:
     seconds = text_to_seconds(time)
     if seconds > 0:
         seconds  -= 1
         text = seconds_to_text(seconds)
         label.config(text=text)
+        return True
+    #else:
+        #print("DEBUG: CHAMOU")
+    return False
 
 def text_to_seconds(time: str) -> int:
     parts = time.split(':')

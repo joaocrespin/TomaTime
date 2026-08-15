@@ -1,29 +1,57 @@
 import tkinter as tk
 from timer import tick
-from threading import Thread
 
-root = tk.Tk()
+class App(tk.Tk):
+    def __init__(self):
+        super().__init__()
 
-root.title("Pomodoro")
-root.geometry("500x500")
+        self.time_ticking: bool = False
 
-time_ticking: bool = False
+        self.title("TomaTime")
+        self.geometry("500x500")
 
-def update() -> None:
-    tick(time_label.cget("text"), time_label)
-    time_label.after(1000, update)
+        self.frame = tk.Frame(self)
+        self.frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
-frame = tk.Frame(root)
-frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        self.time_label = tk.Label(self.frame, text="01:01")
+        self.time_label.pack(pady=10)
 
-time_label = tk.Label(frame, text="01:01")
-time_label.pack(pady=10)
+        self.tomato = tk.Button(self.frame, text="Tomato", command=lambda: self.time_tick())
+        self.tomato.pack()
 
-tomato = tk.Button(frame, text="Tomato", command=lambda: update())
-tomato.pack()
+        self.start = tk.Label(self.frame, text="Pomodoro")
+        self.start.pack(pady=10)
 
-start = tk.Label(frame, text="Pomodoro")
-start.pack(pady=10)
+        # Botões de pomodoro e break
+        self.bottom_frame = tk.Frame(self)
+        self.bottom_frame.place(relx=0.5, rely=1, anchor=tk.S)
 
+        self.focus_button = tk.Button(self.bottom_frame, text="Focus", command=self.focus_time)
+        self.focus_button.pack(side=tk.LEFT)
 
-root.mainloop()
+        self.break_button = tk.Button(self.bottom_frame, text="Break", command= self.break_time)
+        self.break_button.pack(side=tk.LEFT)
+
+    def time_tick(self) -> None:
+        if self.time_ticking:
+            self.time_ticking = False
+            return
+        self.time_ticking = True
+        self.update()
+
+    def update(self) -> None:
+        if self.time_ticking:
+            time_left = tick(self.time_label.cget("text"), self.time_label)
+            if time_left:
+                self.time_label.after(1000, self.update)
+
+    def stop_time(self) -> None:
+        self.time_ticking = False
+
+    def break_time(self) -> None:
+        self.stop_time()
+        self.time_label.config(text="5:00")
+
+    def focus_time(self) -> None:
+        self.stop_time()
+        self.time_label.config(text="25:00")
