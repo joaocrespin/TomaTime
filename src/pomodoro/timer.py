@@ -1,22 +1,12 @@
 import threading
 from tkinter import Label
 
-def count_time(time: int, label: Label) -> None:
-    print("clicado")
-    if time < 0:
-        raise Exception("Time must be greater than or equal to 0")
-    while time:
-        print(time)
-        label.after(time, count_time)
-        threading.Event().wait(1)
-        time-=1
-
-def tick(time: int, label: Label) -> None:
-    # Formata pra segundos
+def tick(time: str, label: Label) -> None:
     seconds = text_to_seconds(time)
-    # Diminui em um segundo o tempo
-    #reformata pra devolver pra label
-    pass
+    if seconds > 0:
+        seconds  -= 1
+        text = seconds_to_text(seconds)
+        label.config(text=text)
 
 def text_to_seconds(time: str) -> int:
     parts = time.split(':')
@@ -31,5 +21,11 @@ def text_to_seconds(time: str) -> int:
     return minutes + seconds
 
 def seconds_to_text(time: int) -> str:
-    minutes, seconds = divmod(time, 60)
+    try:
+        if time < 0:
+            raise ValueError("Time cannot be negative")
+        minutes, seconds = divmod(time, 60)
+        #print(minutes, seconds)
+    except TypeError:
+        raise Exception("Time must be an number")
     return f'{minutes:02d}:{seconds:02d}'
