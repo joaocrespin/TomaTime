@@ -2,9 +2,10 @@ import tkinter as tk
 from timer import tick
 
 class App(tk.Tk):
-    def __init__(self):
+    def __init__(self, time_data: dict):
         super().__init__()
 
+        self.time_data = time_data
         self.time_ticking: bool = False
 
         self.title("TomaTime")
@@ -50,8 +51,8 @@ class App(tk.Tk):
 
     def break_time(self) -> None:
         self.stop_time()
-        self.time_label.config(text="5:00")
+        self.time_label.config(text=self.time_data["break_time"])
 
     def focus_time(self) -> None:
         self.stop_time()
-        self.time_label.config(text="25:00")
+        self.time_label.config(text=self.time_data["focus_time"])

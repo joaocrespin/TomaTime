@@ -11,3 +11,6 @@ wheels/
 
 # Idea
 .idea
+
+# Configs
+config/
