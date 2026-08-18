@@ -1,4 +1,4 @@
-from pomodoro.timer import text_to_seconds, seconds_to_text
+from timer import text_to_seconds, seconds_to_text
 from pytest import raises
 
 def test_text_to_seconds():
