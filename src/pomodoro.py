@@ -1,17 +1,16 @@
 import tkinter as tk
 from timer import tick
-from settings import SettingsFrame
 
 class PomodoroFrame(tk.Frame):
-    def __init__(self, master, time_data: dict):
+    def __init__(self, master, config: Config):
         super().__init__(master)
 
-        self.time_data = time_data
+        self.config = config
+        self.time_data = config.load_config()
         self.time_ticking: bool = False
 
         self.frame = tk.Frame(self)
         self.frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-        #self.frame.pack()
 
         self.time_label = tk.Label(self.frame, text="01:01")
         self.time_label.pack(pady=10)
@@ -25,21 +24,12 @@ class PomodoroFrame(tk.Frame):
         # Botões de pomodoro e break
         self.bottom_frame = tk.Frame(self)
         self.bottom_frame.place(relx=0.5, rely=1, anchor=tk.S)
-        #self.bottom_frame.pack(side=tk.BOTTOM)
 
         self.focus_button = tk.Button(self.bottom_frame, text="Focus", command=self.focus_time)
         self.focus_button.pack(side=tk.LEFT)
 
         self.break_button = tk.Button(self.bottom_frame, text="Break", command= self.break_time)
         self.break_button.pack(side=tk.LEFT)
-
-        # Config
-        self.top_frame = tk.Frame(self)
-        self.top_frame.place(relx=0.8, rely=0, anchor=tk.NW)
-        #self.top_frame.pack(side=tk.TOP)
-
-        self.settings_button = tk.Button(self.top_frame, text="Settings", command=self.open_settings)
-        self.settings_button.pack(side=tk.RIGHT)
 
     def time_tick(self) -> None:
         if self.time_ticking:
@@ -65,10 +55,4 @@ class PomodoroFrame(tk.Frame):
         self.stop_time()
         self.time_label.config(text=self.time_data["focus_time"])
 
-    def hide_all_frames(self)-> None:
-        self.frame.place_forget()
-        self.bottom_frame.place_forget()
-        self.top_frame.place_forget()
 
-    def open_settings(self) -> None:
-        pass
