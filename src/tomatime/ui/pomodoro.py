@@ -13,7 +13,7 @@ class PomodoroFrame(tk.Frame):
         self.frame = tk.Frame(self)
         self.frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
-        self.time_label = tk.Label(self.frame, text=self.time_data["focus_time"])
+        self.time_label = tk.Label(self.frame, text=self.format_time(self.time_data["focus_time"]))
         self.time_label.pack(pady=10)
 
         self.tomato = tk.Button(self.frame, text="Tomato", command=lambda: self.time_tick())
@@ -50,10 +50,13 @@ class PomodoroFrame(tk.Frame):
 
     def break_time(self) -> None:
         self.stop_time()
-        self.time_label.config(text=self.time_data["break_time"])
+        self.time_label.config(text=self.format_time(self.time_data["break_time"]))
 
     def focus_time(self) -> None:
         self.stop_time()
-        self.time_label.config(text=self.time_data["focus_time"])
+        self.time_label.config(text=self.format_time(self.time_data["focus_time"]))
+
+    def format_time(self, time: int) -> str:
+        return f"{time}:00"
 
 

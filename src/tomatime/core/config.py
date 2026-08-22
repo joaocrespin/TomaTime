@@ -12,8 +12,8 @@ class Config:
             return json_data
         else:
             time_data = {
-                "focus_time": "25:00",
-                "break_time": "5:00",
+                "focus_time": 25,
+                "break_time": 5,
             }
             self.file_path.parent.mkdir(parents=True, exist_ok=True)
             self.set_config(time_data["focus_time"], time_data["break_time"])

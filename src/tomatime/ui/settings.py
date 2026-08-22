@@ -1,12 +1,14 @@
 import tkinter as tk
 from tkinter import messagebox as mb
 
+
 class SettingsFrame(tk.Frame):
     def __init__(self, master, config: Config):
         super().__init__(master)
 
         self.master = master;
         self.config = config
+        self.time_data = config.load_config()
 
         self.frame = tk.Frame(self)
         self.frame.pack()
@@ -25,14 +27,14 @@ class SettingsFrame(tk.Frame):
 
         self.focus_label.grid(row=2, column=0)
         self.focus_time_entry = tk.Entry(self.frame, justify="center", validate="key", validatecommand=vcmd)
-        self.focus_time_entry.insert(tk.END, "25")
+        self.focus_time_entry.insert(tk.END, self.time_data["focus_time"])
         self.focus_time_entry.grid(row=3, column=0)
 
         # Break time
         self.break_label = tk.Label(self.frame, text="Break Time")
         self.break_label.grid(row=2, column=3)
         self.break_time_entry = tk.Entry(self.frame, justify="center", validate="key", validatecommand=vcmd)
-        self.break_time_entry.insert(tk.END, "5")
+        self.break_time_entry.insert(tk.END, self.time_data["break_time"])
         self.break_time_entry.grid(row=3, column=3)
 
         # Save
@@ -55,7 +57,7 @@ class SettingsFrame(tk.Frame):
         try:
             focus_time = self.validate_number(self.focus_time_entry.get())
             break_time = self.validate_number(self.break_time_entry.get())
-            self.config.set_config(str(focus_time) + ":00", str(break_time) + ":00")
+            self.config.set_config(str(focus_time), str(break_time))
         except Exception as e:
             print("Error saving time:", e)
             mb.showwarning("Warning", str(e))
