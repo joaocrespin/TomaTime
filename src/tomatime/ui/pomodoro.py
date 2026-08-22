@@ -1,8 +1,9 @@
 import tkinter as tk
+from tkinter import ttk
 from tomatime.core.timer import tick
 
 
-class PomodoroFrame(tk.Frame):
+class PomodoroFrame(ttk.Frame):
     def __init__(self, master, config: Config):
         super().__init__(master)
 
@@ -10,27 +11,24 @@ class PomodoroFrame(tk.Frame):
         self.time_data = config.load_config()
         self.time_ticking: bool = False
 
-        self.frame = tk.Frame(self)
+        self.frame = ttk.Frame(self)
         self.frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
-        self.time_label = tk.Label(self.frame, text=self.format_time(self.time_data["focus_time"]))
+        self.time_label = ttk.Label(self.frame, text=self.format_time(self.time_data["focus_time"]), style="Timer.TLabel")
         self.time_label.pack(pady=10)
 
-        self.tomato = tk.Button(self.frame, text="Tomato", command=lambda: self.time_tick())
+        self.tomato = ttk.Button(self.frame, text="Tomato", command=lambda: self.time_tick())
         self.tomato.pack()
 
-        self.start = tk.Label(self.frame, text="Pomodoro")
-        self.start.pack(pady=10)
-
         # Botões de tomatime e break
-        self.bottom_frame = tk.Frame(self)
+        self.bottom_frame = ttk.Frame(self)
         self.bottom_frame.place(relx=0.5, rely=1, anchor=tk.S)
 
-        self.focus_button = tk.Button(self.bottom_frame, text="Focus", command=self.focus_time)
-        self.focus_button.pack(side=tk.LEFT)
+        self.focus_button = ttk.Button(self.bottom_frame, text="Focus", command=self.focus_time)
+        self.focus_button.pack(side=tk.LEFT, padx=10, pady=10)
 
-        self.break_button = tk.Button(self.bottom_frame, text="Break", command= self.break_time)
-        self.break_button.pack(side=tk.LEFT)
+        self.break_button = ttk.Button(self.bottom_frame, text="Break", command= self.break_time)
+        self.break_button.pack(side=tk.LEFT, padx=10, pady=10)
 
     def time_tick(self) -> None:
         if self.time_ticking:

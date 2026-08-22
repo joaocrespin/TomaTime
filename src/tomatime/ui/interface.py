@@ -1,6 +1,8 @@
 import tkinter as tk
+from tkinter import ttk
 from tomatime.ui.pomodoro import PomodoroFrame
 from tomatime.ui.settings import SettingsFrame
+from tomatime.ui.styles import apply_theme, COLORS
 
 
 class App(tk.Tk):
@@ -9,6 +11,8 @@ class App(tk.Tk):
 
         self.title("TomaTime")
         self.geometry("500x500")
+        apply_theme(self)
+        self.configure(bg=COLORS["bg"])
 
         self.config = config
 
@@ -18,9 +22,9 @@ class App(tk.Tk):
         self.settings_frame = SettingsFrame(self, config)
 
         # Config
-        self.top_frame = tk.Frame(self)
+        self.top_frame = ttk.Frame(self)
         self.top_frame.place(relx=0.8, rely=0, anchor=tk.NW)
-        self.settings_button = tk.Button(self.top_frame, text="Settings", command=self.open_settings)
+        self.settings_button = ttk.Button(self.top_frame, text="Settings", command=self.open_settings)
         self.settings_button.pack()
 
 
