@@ -1,5 +1,6 @@
 import tkinter as tk
-from timer import tick
+from tomatime.timer import tick
+
 
 class PomodoroFrame(tk.Frame):
     def __init__(self, master, config: Config):
@@ -12,7 +13,7 @@ class PomodoroFrame(tk.Frame):
         self.frame = tk.Frame(self)
         self.frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
-        self.time_label = tk.Label(self.frame, text="01:01")
+        self.time_label = tk.Label(self.frame, text=self.time_data["focus_time"])
         self.time_label.pack(pady=10)
 
         self.tomato = tk.Button(self.frame, text="Tomato", command=lambda: self.time_tick())
@@ -21,7 +22,7 @@ class PomodoroFrame(tk.Frame):
         self.start = tk.Label(self.frame, text="Pomodoro")
         self.start.pack(pady=10)
 
-        # Botões de pomodoro e break
+        # Botões de tomatime e break
         self.bottom_frame = tk.Frame(self)
         self.bottom_frame.place(relx=0.5, rely=1, anchor=tk.S)
 

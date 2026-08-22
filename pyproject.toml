@@ -4,10 +4,12 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 authors = [
-    { name = "joaocrespin", email = "joaorato58@gmail.com" }
+    { name = "joaocrespin", email = "" }
 ]
 requires-python = ">=3.14"
 dependencies = [
+    "playsound3>=3.3.2",
+    "plyer>=2.1.0",
     "pytest>=9.1.1",
 ]
 

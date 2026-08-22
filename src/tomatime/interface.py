@@ -1,6 +1,7 @@
 import tkinter as tk
-from pomodoro import PomodoroFrame
-from settings import SettingsFrame
+from tomatime.pomodoro import PomodoroFrame
+from tomatime.settings import SettingsFrame
+
 
 class App(tk.Tk):
     def __init__(self, config: Config):

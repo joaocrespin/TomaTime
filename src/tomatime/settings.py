@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox as mb
 
-
 class SettingsFrame(tk.Frame):
     def __init__(self, master, config: Config):
         super().__init__(master)

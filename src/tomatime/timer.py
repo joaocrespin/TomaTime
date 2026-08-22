@@ -1,5 +1,7 @@
-import threading
 from tkinter import Label
+from tomatime.notification import notify
+
+# TODO: Identify if it's break time or focus time (custom messages)
 
 def tick(time: str, label: Label) -> bool:
     seconds = text_to_seconds(time)
@@ -8,8 +10,8 @@ def tick(time: str, label: Label) -> bool:
         text = seconds_to_text(seconds)
         label.config(text=text)
         return True
-    #else:
-        #print("DEBUG: CHAMOU")
+    else:
+        notify("Time's up!", "Time's up! Break or another round?")
     return False
 
 def text_to_seconds(time: str) -> int:
