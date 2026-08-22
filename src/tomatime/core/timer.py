@@ -1,5 +1,5 @@
 from tkinter import Label
-from tomatime.notification import notify
+from tomatime.core.notification import notify
 
 # TODO: Identify if it's break time or focus time (custom messages)
 

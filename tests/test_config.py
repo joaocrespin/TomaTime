@@ -1,7 +1,7 @@
 import json
 import pytest
 from pathlib import Path
-from tomatime.config import Config
+from tomatime.core.config import Config
 
 @pytest.fixture
 def config_path(tmp_path: Path) -> Path:

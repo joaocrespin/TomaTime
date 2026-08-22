@@ -1,6 +1,6 @@
 import tkinter as tk
-from tomatime.pomodoro import PomodoroFrame
-from tomatime.settings import SettingsFrame
+from tomatime.ui.pomodoro import PomodoroFrame
+from tomatime.ui.settings import SettingsFrame
 
 
 class App(tk.Tk):

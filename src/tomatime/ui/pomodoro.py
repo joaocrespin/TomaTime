@@ -1,5 +1,5 @@
 import tkinter as tk
-from tomatime.timer import tick
+from tomatime.core.timer import tick
 
 
 class PomodoroFrame(tk.Frame):
