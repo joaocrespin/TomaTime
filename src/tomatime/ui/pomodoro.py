@@ -10,6 +10,7 @@ class PomodoroFrame(ttk.Frame):
         self.config = config
         self.time_data = config.load_config()
         self.time_ticking: bool = False
+        self.focused: bool  = True
 
         self.frame = ttk.Frame(self)
         self.frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
@@ -39,19 +40,23 @@ class PomodoroFrame(ttk.Frame):
 
     def update(self) -> None:
         if self.time_ticking:
-            time_left = tick(self.time_label.cget("text"), self.time_label)
+            time_left = tick(self.time_label.cget("text"), self.time_label, self.focused)
             if time_left:
                 self.time_label.after(1000, self.update)
+            else:
+                self.time_ticking = False
 
     def stop_time(self) -> None:
         self.time_ticking = False
 
     def break_time(self) -> None:
         self.stop_time()
+        self.focused = False
         self.time_label.config(text=self.format_time(self.time_data["break_time"]))
 
     def focus_time(self) -> None:
         self.stop_time()
+        self.focused = True
         self.time_label.config(text=self.format_time(self.time_data["focus_time"]))
 
     def format_time(self, time: int) -> str:

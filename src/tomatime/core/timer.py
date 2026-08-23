@@ -1,9 +1,8 @@
 from tkinter import Label
 from tomatime.core.notification import notify
 
-# TODO: Identify if it's break time or focus time (custom messages)
 
-def tick(time: str, label: Label) -> bool:
+def tick(time: str, label: Label, focused: bool) -> bool:
     seconds = text_to_seconds(time)
     if seconds > 0:
         seconds  -= 1
@@ -11,7 +10,10 @@ def tick(time: str, label: Label) -> bool:
         label.config(text=text)
         return True
     else:
-        notify("Time's up!", "Time's up! Break or another round?")
+        if focused:
+            notify("Time's up!", "Time's up! Break or another round?")
+        else:
+            notify("Break's over!", "Time to focus again!")
     return False
 
 def text_to_seconds(time: str) -> int:
