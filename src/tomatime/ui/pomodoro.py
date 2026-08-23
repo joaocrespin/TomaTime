@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tomatime.core.timer import tick
-
+from tomatime.ui.styles import add_background
 
 class PomodoroFrame(ttk.Frame):
     def __init__(self, master, config: Config):
@@ -12,8 +12,10 @@ class PomodoroFrame(ttk.Frame):
         self.time_ticking: bool = False
         self.focused: bool  = True
 
-        self.frame = ttk.Frame(self)
-        self.frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        self.bg_photo = add_background(self, "src/assets/images/tomato.jpg", (500, 500))
+
+        self.frame = ttk.Frame(self, style="Tomato.TFrame")
+        self.frame.place(relx=0.5, rely=0.56, anchor=tk.CENTER)
 
         self.time_label = ttk.Label(self.frame, text=self.format_time(self.time_data["focus_time"]), style="Timer.TLabel")
         self.time_label.pack(pady=10)

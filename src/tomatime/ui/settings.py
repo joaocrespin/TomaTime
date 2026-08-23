@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox as mb
-
+from tomatime.ui.styles import add_background
 
 class SettingsFrame(ttk.Frame):
     def __init__(self, master, config: Config):
