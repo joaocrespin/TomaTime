@@ -34,7 +34,7 @@ class App(tk.Tk):
 
     def open_settings(self) -> None:
         self.hide_all_frames()
-        self.settings_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        self.settings_frame.place(relwidth=1, relheight=1)
         self.settings_button["text"] = "Return"
         self.settings_button["command"] = self.return_pomodoro
 

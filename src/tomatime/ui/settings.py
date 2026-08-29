@@ -11,7 +11,7 @@ class SettingsFrame(ttk.Frame):
         self.time_data = config.load_config()
 
         self.frame = ttk.Frame(self)
-        self.frame.pack(padx=20, pady=20)
+        self.frame.place(relx=0.5, rely=0.55, anchor=tk.CENTER)
 
         self.time_label = ttk.Label(self.frame, text="Time (minutes)")
         self.time_label.grid(row=0, column=0, columnspan=2, pady=(0, 15))
