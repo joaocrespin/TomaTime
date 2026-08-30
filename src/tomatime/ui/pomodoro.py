@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tomatime.core.timer import tick
 from tomatime.ui.styles import add_background
+from tomatime.core.phase import Phase
 
 class PomodoroFrame(ttk.Frame):
     def __init__(self, master, config: Config):
@@ -10,7 +11,7 @@ class PomodoroFrame(ttk.Frame):
         self.config = config
         self.time_data = config.load_config()
         self.time_ticking: bool = False
-        self.focused: bool  = True
+        self.phase = Phase()
 
         self.bg_photo = add_background(self, "src/assets/images/tomato.jpg", (500, 500))
 
@@ -42,7 +43,7 @@ class PomodoroFrame(ttk.Frame):
 
     def update(self) -> None:
         if self.time_ticking:
-            time_left = tick(self.time_label.cget("text"), self.time_label, self.focused)
+            time_left = tick(self.time_label.cget("text"), self.time_label, self.phase.focused)
             if time_left:
                 self.time_label.after(1000, self.update)
             else:
@@ -53,12 +54,12 @@ class PomodoroFrame(ttk.Frame):
 
     def break_time(self) -> None:
         self.stop_time()
-        self.focused = False
+        self.phase.change_phase(focused=False)
         self.time_label.config(text=self.format_time(self.time_data["break_time"]))
 
     def focus_time(self) -> None:
         self.stop_time()
-        self.focused = True
+        self.phase.change_phase(focused=True)
         self.time_label.config(text=self.format_time(self.time_data["focus_time"]))
 
     def format_time(self, time: int) -> str:
